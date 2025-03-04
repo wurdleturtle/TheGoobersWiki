@@ -5,7 +5,7 @@
   "author": "Wurdle Turtle",
   "description": "Goober",
   "type": "module",
-  "main": "electron.js",
+  "main": "src/electron.js",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
@@ -26,12 +26,13 @@
     "@types/react-dom": "^18.0.10",
     "@vitejs/plugin-react": "^3.1.0",
     "autoprefixer": "^10.4.20",
+    "electron": "^35.0.0",
     "electron-builder": "^25.1.8",
     "postcss": "^8.5.3",
     "tailwindcss": "^4.0.9",
-    "typescript": "^4.9.3",
-    "vite": "^4.1.0",
-    "electron": "^35.0.0"
+    "ts-node": "^10.9.2",
+    "typescript": "^4.9.5",
+    "vite": "^4.1.0"
   },
   "build": {
     "appId": "com.example.reactapp",
@@ -40,8 +41,8 @@
       "output": "dist-electron"
     },
     "files": [
-      "dist/**/*",
-      "public/electron.js"
+      "**/*",
+      "dist-electron/electron.js"
     ],
     "win": {
       "target": "nsis",
