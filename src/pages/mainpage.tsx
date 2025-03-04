@@ -60,10 +60,7 @@ const MainPage = () => {
     <div className="centered">
       <h1 className="centered">The Goobers Wiki</h1>
       <br />
-      <p className="centered">
-        Welcome to The Goobers Wiki! <br />
-        Now on React! <br />A Work in Progress
-      </p>
+      <p className="centered">Welcome to The Goobers Wiki! </p>
       <br />
 
       {/* Display MOTD with HTML Support */}
