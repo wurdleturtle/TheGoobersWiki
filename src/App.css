@@ -1,0 +1,90 @@
+#root, html {
+    background-color: #2a2a2a;
+    color: #ffffff;
+    font-family: mc;
+}
+.AlertButton {
+    text-align: center;
+}
+@font-face {
+    font-family: "mc";
+    src: url(assets/minecraft.ttf);
+}
+.text {
+    text-align: center;
+}
+.centered {
+    display: block;
+    margin: 0 auto;
+    text-align: center;
+}
+.text-yellow {
+    color: rgb(255, 213, 0);
+}
+.text-green {
+    color: rgb(46, 255, 46);
+}
+
+.yellow {
+    color: rgb(255, 213, 0);
+}
+
+.red {
+    color: rgb(154, 0, 0);
+}
+
+.gone {
+    opacity: 0;
+}
+
+.fakebutton {
+    text-decoration: none;
+    color: #1a1a1a;
+    outline: 2px solid #676767;
+}
+
+/* Member Colours */
+.Wurdle {
+    background: linear-gradient(to right, #0180DF 0%, #438448 50%, #0180DF 100%)
+}
+.wurdlebutton {
+    color:#ffffff;
+    scale: 2;
+    background-color: #428347;
+}
+.Zilver {
+    background: linear-gradient(to right, #872600 0%, #ff4d04 50%, #872600 100%);
+}
+.zilverbutton {
+    color:#ffffff;
+    scale: 2;
+    background-color: #FF6A25;
+}
+
+.Pipari {
+    background: linear-gradient(to right, #00183a 0%, #003074 50%, #00183a 100%);
+}
+.pipaributton {
+    outline: #2a2a2a;
+    color:#ffffff;
+    scale: 2;
+    background-color: #2555A2;
+}
+
+.Kai {
+    background: linear-gradient(to right, #EAB67A 0%, #FFC500 50%, #EAB67A 100%);
+}
+.kaibutton {
+    color:#ffffff;
+    scale: 2;
+    background-color: #FFC501;
+}
+
+.Kenma {
+    background: linear-gradient(to right, #f24b82 0%, #ed1c42 50%, #f24b82 100%)
+}
+.kenmabutton {
+    color:#ffffff;
+    scale: 2;
+    background-color: #ff2e62;
+}
