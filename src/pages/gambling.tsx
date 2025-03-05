@@ -11,10 +11,9 @@ import {
   getDocs,
   increment,
 } from "firebase/firestore";
-
 const SpinWheel = () => {
   const { user } = useAuth();
-  const [pipariCount, setPipariCount] = useState(0);
+  const [WurdleCount, setWurdleCount] = useState(0);
   const [lastSpinDate, setLastSpinDate] = useState<string | null>(null);
   const [canSpin, setCanSpin] = useState(false);
   const [spinning, setSpinning] = useState(false);
@@ -30,7 +29,7 @@ const SpinWheel = () => {
 
       if (userDoc.exists()) {
         const data = userDoc.data();
-        setPipariCount(data.pipariCount || 0);
+        setWurdleCount(data.WurdleCount || 0);
         setLastSpinDate(data.lastSpinDate || null);
 
         // Check if user has already spun today
@@ -46,30 +45,30 @@ const SpinWheel = () => {
     if (!user || !canSpin || spinning) return; // Early return if user is null or spinning
 
     setSpinning(true);
-    const reward = Math.floor(Math.random() * 100) + 1; // Random 1-100 Piparis
+    const reward = Math.floor(Math.random() * 100) + 1; // Random 1-100 Wurdles
 
     const userDocRef = doc(db, "users", user.uid);
     await updateDoc(userDocRef, {
-      pipariCount: increment(reward),
+      WurdleCount: increment(reward),
       lastSpinDate: new Date().toISOString().split("T")[0], // Set today's date to prevent multiple spins
     });
 
-    setPipariCount((prev) => prev + reward);
+    setWurdleCount((prev) => prev + reward);
     setLastSpinDate(new Date().toISOString().split("T")[0]);
     setCanSpin(false);
     setSpinning(false);
-    alert(`You won ${reward} Piparis! 🎉`);
+    alert(`You won ${reward} Wurdles! 🎉`);
   };
 
-  const tradePiparis = async () => {
+  const tradeWurdles = async () => {
     if (!user || !recipient || !tradeAmount) return; // Early return if user is null or invalid trade data
     const amount = parseInt(tradeAmount);
     if (isNaN(amount) || amount <= 0) {
-      alert("Please enter a valid Pipari amount.");
+      alert("Please enter a valid Wurdle amount.");
       return;
     }
-    if (amount > pipariCount) {
-      alert("You don't have enough Piparis!");
+    if (amount > WurdleCount) {
+      alert("You don't have enough Wurdles!");
       return;
     }
 
@@ -85,48 +84,48 @@ const SpinWheel = () => {
     const recipientDocRef = recipientSnapshot.docs[0].ref;
 
     await updateDoc(doc(db, "users", user.uid), {
-      pipariCount: increment(-amount),
+      WurdleCount: increment(-amount),
     });
     await updateDoc(recipientDocRef, {
-      pipariCount: increment(amount),
+      WurdleCount: increment(amount),
     });
 
-    setPipariCount(pipariCount - amount);
-    alert(`You sent ${amount} Piparis to ${recipient}! 🎉`);
+    setWurdleCount(WurdleCount - amount);
+    alert(`You sent ${amount} Wurdles to ${recipient}! 🎉`);
     setRecipient("");
     setTradeAmount("");
   };
 
-  // Define handleEarnPiparis function
-  const handleEarnPiparis = (earnedPiparis: number) => {
-    setPipariCount((prev) => prev + earnedPiparis); // Add earned Piparis to the user's count
+  // Define handleEarnWurdles function
+  const handleEarnWurdles = (earnedWurdles: number) => {
+    setWurdleCount((prev) => prev + earnedWurdles); // Add earned Wurdles to the user's count
   };
 
-  const removePipari = async () => {
+  const removeWurdle = async () => {
     if (!user) return; // Early return if user is null
-    if (pipariCount <= 0) {
-      alert("You don't have any Piparis to remove!");
+    if (WurdleCount <= 0) {
+      alert("You don't have any Wurdles to remove!");
       return;
     }
 
     const userDocRef = doc(db, "users", user.uid);
     await updateDoc(userDocRef, {
-      pipariCount: increment(-1),
+      WurdleCount: increment(-1),
     });
 
-    setPipariCount(pipariCount - 1);
-    alert("You removed 1 Pipari! 😔");
+    setWurdleCount(WurdleCount - 1);
+    alert("You removed 1 Wurdle! 😔");
   };
 
   return (
     <div className="spin-container centered">
       <h2>Daily Spin Wheel 🎡</h2>
-      <p>Your Piparis: {pipariCount}</p>
+      <p>Your Wurdles: {WurdleCount}</p>
       <button onClick={spinWheel} disabled={!canSpin} className="spin-button">
         {spinning ? "Spinning..." : "Spin the Wheel!"}
       </button>
       {!canSpin && <p>Come back tomorrow for another spin!</p>}
-      <h2>Trade Piparis 🤝</h2>
+      <h2>Trade Wurdles 🤝</h2>
       <input
         type="text"
         placeholder="Recipient username"
@@ -139,10 +138,10 @@ const SpinWheel = () => {
         value={tradeAmount}
         onChange={(e) => setTradeAmount(e.target.value)}
       />
-      <button onClick={tradePiparis}>Send Piparis</button>
-      <h2> Throw a Pipari into the well</h2>
-      <button onClick={removePipari} disabled={pipariCount <= 0}>
-        Throw a Pipari into the well
+      <button onClick={tradeWurdles}>Send Wurdles</button>
+      <h2> Throw a Wurdle into the well</h2>
+      <button onClick={removeWurdle} disabled={WurdleCount <= 0}>
+        Throw a Wurdle into the well
       </button>
       <br />
     </div>
