@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 const TopBar = () => {
   return (
@@ -33,17 +33,17 @@ const TopBar = () => {
           Articles
         </Link>
         <Link
-          to="/chat"
+          to="/ideas"
           className="bg-white text-blue-600 px-4 py-2 rounded-lg hover:bg-gray-200 fakebutton"
         >
-          Chat
+          Ideas
         </Link>
-        <Link
+        {/*<Link
           to="/gambling"
           className="bg-white text-blue-600 px-4 py-2 rounded-lg hover:bg-gray-200 fakebutton"
         >
           Gambling
-        </Link>
+        </Link>*/}
       </div>
     </div>
   );

@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { db } from "../firebase";
+import { useEffect, useState } from 'react';
+import { db } from '../firebase';
 import {
   collection,
   addDoc,
@@ -10,8 +10,8 @@ import {
   doc,
   updateDoc,
   getDoc, // Import getDoc here
-} from "firebase/firestore";
-import { useAuth } from "../AuthContext";
+} from 'firebase/firestore';
+import { useAuth } from '../AuthContext';
 
 type Message = {
   id: string;
@@ -23,8 +23,8 @@ type Message = {
 const ChatPage = () => {
   const { user } = useAuth();
   const [messages, setMessages] = useState<Message[]>([]);
-  const [newMessage, setNewMessage] = useState("");
-  const [userColor, setUserColor] = useState("#FFFFFF"); // Default color is white
+  const [newMessage, setNewMessage] = useState('');
+  const [userColor, setUserColor] = useState('#FFFFFF'); // Default color is white
   const [userColors, setUserColors] = useState<{ [key: string]: string }>({}); // Object to hold each user's color
 
   if (!user) {
@@ -36,11 +36,11 @@ const ChatPage = () => {
   // Fetch user's stored color from Firestore
   useEffect(() => {
     const getUserColor = async () => {
-      const userDoc = doc(db, "users", user.uid);
+      const userDoc = doc(db, 'users', user.uid);
       const userSnapshot = await getDoc(userDoc); // Fetch user document
 
       if (userSnapshot.exists()) {
-        setUserColor(userSnapshot.data()?.chatColor || "#FFFFFF"); // Set default color if no color is set
+        setUserColor(userSnapshot.data()?.chatColor || '#FFFFFF'); // Set default color if no color is set
       }
     };
 
@@ -49,7 +49,7 @@ const ChatPage = () => {
 
   // Update user's color in Firestore when it changes
   const updateUserColor = async (newColor: string) => {
-    const userDoc = doc(db, "users", user.uid);
+    const userDoc = doc(db, 'users', user.uid);
     await updateDoc(userDoc, {
       chatColor: newColor,
     });
@@ -58,20 +58,20 @@ const ChatPage = () => {
 
   // Fetch chat messages and colors from Firestore
   useEffect(() => {
-    const q = query(collection(db, "chat"), orderBy("timestamp"));
+    const q = query(collection(db, 'chat'), orderBy('timestamp'));
     const unsubscribe = onSnapshot(q, async (snapshot) => {
       const msgs: Message[] = snapshot.docs.map((doc) => ({
         id: doc.id,
-        ...(doc.data() as Omit<Message, "id">),
+        ...(doc.data() as Omit<Message, 'id'>),
       }));
 
       // Fetch and update user colors for all messages
       const colors: { [key: string]: string } = {};
       for (const msg of msgs) {
-        const userDoc = doc(db, "users", msg.userId);
+        const userDoc = doc(db, 'users', msg.userId);
         const userSnapshot = await getDoc(userDoc);
         if (userSnapshot.exists()) {
-          colors[msg.userId] = userSnapshot.data()?.chatColor || "#FFFFFF"; // Assign default if no color
+          colors[msg.userId] = userSnapshot.data()?.chatColor || '#FFFFFF'; // Assign default if no color
         }
       }
 
@@ -85,36 +85,40 @@ const ChatPage = () => {
   const sendMessage = async () => {
     if (!newMessage.trim()) return;
 
-    await addDoc(collection(db, "chat"), {
+    await addDoc(collection(db, 'chat'), {
       text: newMessage,
       userId: user.uid,
-      username: user.displayName || "Anonymous",
+      username: user.displayName || 'Anonymous',
       timestamp: serverTimestamp(),
     });
 
-    setNewMessage("");
+    setNewMessage('');
   };
 
   return (
     <div className="flex flex-col h-screen p-4 centered">
+      <h2>
+        {' '}
+        Ideas here please, <br /> Serious ideas only!{' '}
+      </h2>
       <div className="flex-1 overflow-y-auto bg-gray-100 p-4 rounded-lg">
         {messages.map((msg) => (
           <div
             key={msg.id}
             className={`mb-1 flex ${
-              msg.userId === user.uid ? "justify-end" : "justify-start"
+              msg.userId === user.uid ? 'justify-end' : 'justify-start'
             }`}
           >
             <div className="inline-flex items-center space-x-2">
               <span
                 className="text-sm font-bold"
-                style={{ color: userColors[msg.userId] || "#000000" }} // Apply the correct color for each user
+                style={{ color: userColors[msg.userId] || '#000000' }} // Apply the correct color for each user
               >
                 {msg.username}:
               </span>
               <span
                 className="p-1 rounded-lg"
-                style={{ color: userColors[msg.userId] || "#000000" }} // Apply the correct color for each user
+                style={{ color: userColors[msg.userId] || '#000000' }} // Apply the correct color for each user
               >
                 {msg.text}
               </span>
