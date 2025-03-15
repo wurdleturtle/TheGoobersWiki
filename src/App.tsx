@@ -19,6 +19,7 @@ import { db } from './firebase'; // make sure to import your firebase config
 import { doc, getDoc } from 'firebase/firestore';
 import ChatPage from './pages/ChatPage';
 import GamblingPage from './pages/gambling';
+import Clickerpage from './pages/ClickerPage';
 
 function AppContent() {
   const { user, username, logout } = useAuth();
@@ -66,6 +67,7 @@ function AppContent() {
               <Route path="*" element={<Navigate to="/" />} />
               <Route path="/ideas" element={<ChatPage />} />
               <Route path="/gambling" element={<GamblingPage />} />
+              <Route path="/clicker" element={<Clickerpage />} />
             </Routes>
             <br />
             <br />

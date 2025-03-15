@@ -38,12 +38,12 @@ const TopBar = () => {
         >
           Ideas
         </Link>
-        {/*<Link
-          to="/gambling"
+        <Link
+          to="/clicker"
           className="bg-white text-blue-600 px-4 py-2 rounded-lg hover:bg-gray-200 fakebutton"
         >
-          Gambling
-        </Link>*/}
+          Clicker
+        </Link>
       </div>
     </div>
   );
