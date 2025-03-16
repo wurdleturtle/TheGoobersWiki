@@ -32,18 +32,18 @@ const TopBar = () => {
         >
           Articles
         </Link>
-        <Link
+        {/*<Link
           to="/ideas"
           className="bg-white text-blue-600 px-4 py-2 rounded-lg hover:bg-gray-200 fakebutton"
         >
           Ideas
-        </Link>
-        <Link
+        </Link>*/}
+        {/*<Link
           to="/clicker"
           className="bg-white text-blue-600 px-4 py-2 rounded-lg hover:bg-gray-200 fakebutton"
         >
-          Clicker
-        </Link>
+          Burger (BETA)
+        </Link>*/}
       </div>
     </div>
   );
